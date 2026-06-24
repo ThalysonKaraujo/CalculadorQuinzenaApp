@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStaticNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SQLiteProvider } from "expo-sqlite";
+import { StyleSheet, Text, View } from "react-native";
+import { initDatabase } from "./database/databaseInit";
+import { HomeScreen } from "./screens/HomeScreen";
+
+const RootStack = createNativeStackNavigator({
+	screenOptions: {
+		headerShown: false,
+	},
+	initialRouteName: "Home",
+	screens: {
+		Home: HomeScreen,
+	},
+});
+
+const Navigation = createStaticNavigation(RootStack);
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	return (
+		<SQLiteProvider databaseName="quinzena.db" onInit={initDatabase}>
+			<Navigation />
+		</SQLiteProvider>
+	);
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
