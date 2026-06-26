@@ -18,11 +18,10 @@ export function TextInput({
 }
 const styles = StyleSheet.create({
 	textInput: {
-		width: "80%",
 		height: 45,
 		borderColor: "gray",
 		backgroundColor: "#fff",
-		borderWidth: 1,
+		borderWidth: 0.25,
 		paddingHorizontal: 10,
 		borderRadius: 5,
 	},

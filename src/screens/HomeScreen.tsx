@@ -1,22 +1,46 @@
 import { Feather } from "@expo/vector-icons";
-import { Pressable, StyleSheet, View } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { FlatList, Platform, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ClientCard } from "../components/ClientCard";
+import { HeaderText } from "../components/HeaderText";
+import { NewClientButton } from "../components/NewClientButton";
 import { Text } from "../components/ui/Text";
 import { TextInput } from "../components/ui/TextInput";
-import { Title } from "../components/ui/Title";
-import { Colors } from "../constants/Colors";
+import { useGetAllCompanies } from "../hooks/useGetAllCompanies";
+import type { Company } from "../types/company";
 
 export function HomeScreen() {
 	const insets = useSafeAreaInsets();
+	const navigation = useNavigation();
+
+	const [companies, setCompanies] = useState<Company[]>([]);
+	const { getAllCompanies } = useGetAllCompanies();
+
+	useFocusEffect(
+		useCallback(() => {
+			async function fetchCompanies() {
+				try {
+					const companiesData = await getAllCompanies();
+					setCompanies(companiesData as Company[]);
+				} catch (error) {
+					console.error("Error fetching companies:", error);
+				}
+			}
+
+			fetchCompanies();
+		}, [getAllCompanies]),
+	);
 
 	return (
-		<View style={styles.container}>
-			<View style={[styles.header, { marginTop: insets.top }]}>
-				<Title>Sabor Caseiro</Title>
-			</View>
+		<View style={[styles.container, { marginTop: insets.top }]}>
+			<HeaderText>Sabor Caseiro</HeaderText>
 			<View style={styles.inputContainer}>
-				<TextInput placeholder="Procure a construtora" />
+				<TextInput
+					placeholder="Procure a construtora"
+					style={styles.textInput}
+				/>
 				<Pressable
 					style={({ pressed }) => [styles.button, pressed && { opacity: 0.5 }]}
 					android_ripple={{ color: "#ccc" }}
@@ -27,31 +51,33 @@ export function HomeScreen() {
 			<View style={styles.activeClientContainer}>
 				<Text>Construtoras Ativas</Text>
 				<View style={styles.activeClientCountContainer}>
-					<Text style={styles.activeClientCount}>4 </Text>
+					<Text style={styles.activeClientCount}>{companies.length} </Text>
 				</View>
 			</View>
 			<View style={styles.clientCardsContainer}>
-				<ClientCard
-					clientName="Construtora Alpha"
-					totalValue={1000}
-					totalMeals={10}
-				/>
-				<ClientCard
-					clientName="Construtora Beta"
-					totalValue={1500}
-					totalMeals={15}
-				/>
-				<ClientCard
-					clientName="Construtora Gamma"
-					totalValue={2000}
-					totalMeals={20}
-				/>
-				<ClientCard
-					clientName="Construtora Delta"
-					totalValue={2500}
-					totalMeals={25}
+				<FlatList
+					data={companies}
+					keyExtractor={(item) => item.id.toString()}
+					renderItem={({ item }) => (
+						<ClientCard clientName={item.name} totalValue={0} totalMeals={0} />
+					)}
+					contentContainerStyle={{
+						paddingBottom:
+							Platform.OS === "android"
+								? insets.bottom + 20
+								: insets.bottom + 20,
+						paddingLeft: 25,
+					}}
+					showsVerticalScrollIndicator={false}
+					bounces={false}
 				/>
 			</View>
+
+			<NewClientButton
+				onPress={() => {
+					navigation.navigate("AddClient");
+				}}
+			/>
 		</View>
 	);
 }
@@ -59,11 +85,8 @@ export function HomeScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		height: "100%",
-		backgroundColor: Colors.secondary,
 	},
 	header: {
-		width: "100%",
 		height: 60,
 		alignItems: "center",
 		justifyContent: "center",
@@ -85,7 +108,10 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		marginRight: 8,
 		borderColor: "gray",
-		borderWidth: 1,
+		borderWidth: 0.25,
+	},
+	textInput: {
+		width: "80%",
 	},
 	buttonText: {
 		color: "#000",
@@ -110,8 +136,7 @@ const styles = StyleSheet.create({
 		fontWeight: "light",
 	},
 	clientCardsContainer: {
-		justifyContent: "center",
-		alignItems: "center",
-		paddingTop: 20,
+		paddingTop: 5,
+		flex: 1,
 	},
 });
