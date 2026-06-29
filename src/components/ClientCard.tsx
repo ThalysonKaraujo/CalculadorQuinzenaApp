@@ -1,25 +1,31 @@
 import { Feather } from "@expo/vector-icons";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
+import { TouchableCard } from "./ui/TouchableCard";
+
+type ClientCardProps = {
+	clientName: string;
+	totalValue: number;
+	totalMeals: number;
+	responsibleName?: string;
+	onPress: () => void;
+};
 
 export function ClientCard({
 	clientName,
 	totalValue,
 	totalMeals,
-}: {
-	clientName: string;
-	totalValue: number;
-	totalMeals: number;
-}) {
+	responsibleName,
+	onPress,
+}: ClientCardProps) {
 	return (
-		<Pressable
-			style={({ pressed }) => [
-				styles.container,
-				pressed && Platform.OS === "ios" && { opacity: 0.5 },
-			]}
-			android_ripple={{ color: "rgba(0, 0, 0, 0.1)", foreground: true }}
-		>
-			<Text style={styles.clientName}>{clientName}</Text>
+		<TouchableCard onPress={onPress} style={styles.container}>
+			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+				<Text style={styles.clientName}>{clientName}</Text>
+				<View style={{ flexDirection: "row", alignItems: "center" }}>
+					<Text style={styles.responsibleName}> {responsibleName}</Text>
+				</View>
+			</View>
 			<View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
 				<View
 					style={{ flexDirection: "column", flex: 1, justifyContent: "center" }}
@@ -58,7 +64,7 @@ export function ClientCard({
 					/>
 				</View>
 			</View>
-		</Pressable>
+		</TouchableCard>
 	);
 }
 
@@ -71,22 +77,19 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 		padding: 10,
 		marginBottom: 10,
-
-		// Sombra no Android
-		elevation: 5,
-		shadowColor: "#000",
-
-		//Sombra no iOS
-		shadowOffset: { width: 10, height: 10 },
-		shadowOpacity: 0.1,
-		shadowRadius: 4,
-		overflow: Platform.OS === "ios" ? "visible" : "hidden",
 	},
 	clientName: {
 		fontSize: 22,
 		fontWeight: "bold",
 		paddingTop: 20,
 		paddingLeft: 20,
+	},
+	responsibleName: {
+		fontSize: 12,
+		fontWeight: "light",
+		paddingTop: 23,
+		paddingRight: 20,
+		color: "gray",
 	},
 	outerInfoContainer: {
 		width: 120,

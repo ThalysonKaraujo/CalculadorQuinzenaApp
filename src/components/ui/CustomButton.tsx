@@ -5,7 +5,25 @@ type CustomButtonProps = {
 	children: React.ReactNode;
 	style?: object;
 	[key: string]: any;
-	variant?: "primary" | "secondary";
+	variant?: "primary" | "secondary" | "outline";
+};
+
+const variantConfig = {
+	primary: {
+		backgroundColor: Colors.primary,
+		textColor: "#fff",
+		borderColor: Colors.primary,
+	},
+	secondary: {
+		backgroundColor: Colors.secondary,
+		textColor: "#000",
+		borderColor: Colors.secondary,
+	},
+	outline: {
+		backgroundColor: "#fff",
+		textColor: "#000",
+		borderColor: "#ccc",
+	},
 };
 
 export function CustomButton({
@@ -14,23 +32,27 @@ export function CustomButton({
 	variant = "primary",
 	...props
 }: CustomButtonProps) {
-	const isPrimary = variant === "primary";
+	const config = variantConfig[variant] || variantConfig.primary;
 
 	return (
 		<Pressable
 			style={({ pressed }) => [
 				styles.button,
-				isPrimary ? styles.primaryButton : styles.secondaryButton,
+				{
+					backgroundColor: config.backgroundColor,
+					borderColor: config.borderColor,
+					borderWidth: variant === "outline" ? 1 : 0,
+				},
 				style,
 				pressed && Platform.OS === "ios" && { opacity: 0.8 },
 			]}
 			android_ripple={{
-				color: isPrimary ? "rgb(0, 57, 176)" : "rgb(196, 196, 196)",
+				color: variantConfig[variant].backgroundColor,
 				foreground: true,
 			}}
 			{...props}
 		>
-			<Text style={isPrimary ? styles.buttonText : { color: "#454444" }}>
+			<Text style={[styles.buttonText, { color: config.textColor }]}>
 				{children}
 			</Text>
 		</Pressable>
@@ -52,6 +74,9 @@ const styles = StyleSheet.create({
 	},
 	secondaryButton: {
 		backgroundColor: Colors.secondary,
+	},
+	outlineButton: {
+		backgroundColor: "#fff",
 	},
 	buttonText: {
 		color: "#fff",
