@@ -6,7 +6,7 @@ export async function initDatabase(db: SQLiteDatabase) {
       CREATE TABLE IF NOT EXISTS construction_companies (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        responsable_person TEXT
+        responsible_person TEXT
       );
       
       CREATE TABLE IF NOT EXISTS meals (
