@@ -59,7 +59,18 @@ export function HomeScreen() {
 					data={companies}
 					keyExtractor={(item) => item.id.toString()}
 					renderItem={({ item }) => (
-						<ClientCard clientName={item.name} totalValue={0} totalMeals={0} />
+						<ClientCard
+							clientName={item.name}
+							totalValue={0}
+							totalMeals={0}
+							responsibleName={item.responsible_person}
+							onPress={() => {
+								navigation.navigate("ClientDetails", {
+									companyId: item.id,
+									companyName: item.name,
+								});
+							}}
+						/>
 					)}
 					contentContainerStyle={{
 						paddingBottom:

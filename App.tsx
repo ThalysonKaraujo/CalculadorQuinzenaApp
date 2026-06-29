@@ -5,6 +5,10 @@ import { SQLiteProvider } from "expo-sqlite";
 import { Colors } from "./src/constants/Colors";
 import { initDatabase } from "./src/database/databaseInit";
 import { AddClientScreen } from "./src/screens/AddClientScreen";
+import { AddedQuantitiesScreen } from "./src/screens/AddedQuantitiesScren";
+import { AddMealScreen } from "./src/screens/AddMealScreen";
+import { AddQuantityScreen } from "./src/screens/AddQuantity";
+import { ClientDetailsScreen } from "./src/screens/ClientDetailsScreen";
 import { HomeScreen } from "./src/screens/HomeScreen";
 
 const RootStack = createNativeStackNavigator({
@@ -18,6 +22,10 @@ const RootStack = createNativeStackNavigator({
 	screens: {
 		Home: HomeScreen,
 		AddClient: AddClientScreen,
+		ClientDetails: ClientDetailsScreen,
+		AddMeal: AddMealScreen,
+		AddQuantity: AddQuantityScreen,
+		AddedQuantities: AddedQuantitiesScreen,
 	},
 });
 

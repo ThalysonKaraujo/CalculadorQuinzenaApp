@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Header } from "../components/Header";
 import { HeaderText } from "../components/HeaderText";
 import { CustomButton } from "../components/ui/CustomButton";
 import { Text as TitleText } from "../components/ui/Text";
@@ -29,16 +30,10 @@ export function AddClientScreen() {
 	}
 
 	return (
-		<View style={[{ marginTop: insets.top }]}>
-			<View style={styles.header}>
-				<Pressable
-					onPress={() => navigation.goBack()}
-					style={styles.goBackButton}
-				>
-					<Feather name="arrow-left" size={20} color="black" />
-				</Pressable>
+		<View>
+			<Header>
 				<HeaderText>Adicionar Construtora</HeaderText>
-			</View>
+			</Header>
 			<View style={styles.content}>
 				<View style={styles.contentTitle}>
 					<TitleText>Detalhes da Construtora</TitleText>
@@ -74,20 +69,11 @@ export function AddClientScreen() {
 }
 
 const styles = StyleSheet.create({
-	header: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "center",
-		height: 60,
-	},
-	goBackButton: {
-		position: "absolute",
-		left: 20,
-	},
 	textInput: {
 		width: "90%",
 	},
 	content: {
+		marginTop: 20,
 		alignItems: "center",
 		backgroundColor: "#fff",
 		borderRadius: 20,
