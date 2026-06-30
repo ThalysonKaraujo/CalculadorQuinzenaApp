@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	clientName: {
-		fontSize: 22,
+		fontSize: 18,
 		fontWeight: "bold",
 		paddingTop: 20,
 		paddingLeft: 20,

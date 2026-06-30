@@ -1,8 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
 
 type QuantityCardProps = {
+	entryId: number;
 	mealName: string;
 	quantity: number;
 	date: string;
@@ -15,13 +17,19 @@ export const mealConfig: Record<string, string> = {
 	Lanche: "hamburger",
 };
 
-export function QuantityCard({ mealName, quantity, date }: QuantityCardProps) {
+export function QuantityCard({
+	entryId,
+	mealName,
+	quantity,
+	date,
+}: QuantityCardProps) {
 	const iconName = mealConfig[mealName as keyof typeof mealConfig] || "coffee";
 	const formattedDate = new Date(date).toLocaleDateString("pt-BR", {
 		day: "2-digit",
 		month: "2-digit",
 		year: "numeric",
 	});
+	const navigation = useNavigation();
 	return (
 		<View style={styles.card}>
 			<View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
@@ -51,7 +59,14 @@ export function QuantityCard({ mealName, quantity, date }: QuantityCardProps) {
 						{quantity}
 					</Text>
 					<Pressable
-						onPress={() => {}}
+						onPress={() =>
+							navigation.navigate("EditQuantity", {
+								entryId,
+								mealName,
+								quantity,
+								date,
+							})
+						}
 						style={({ pressed }) => [
 							styles.editButton,
 							pressed && Platform.OS === "ios" && { opacity: 0.5 },

@@ -4,7 +4,7 @@ import {
 	useNavigation,
 } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { Header } from "../components/Header";
 import { QuantityCard } from "../components/QuantityCard";
 import { useGetQuantitiesByCompanyId } from "../hooks/useGetQuantitiesByCompanyId";
@@ -45,7 +45,14 @@ export function AddedQuantitiesScreen({ route }: Props) {
 			<Header>Quantidades</Header>
 			<FlatList
 				data={quantities}
-				renderItem={({ item }) => <QuantityCard {...item} />}
+				renderItem={({ item }) => (
+					<QuantityCard
+						entryId={item.id} // <-- Ligamos o id do banco no entryId!
+						mealName={item.mealName}
+						quantity={item.quantity}
+						date={item.date}
+					/>
+				)}
 				keyExtractor={(item: Quantity) => {
 					return item.id.toString();
 				}}

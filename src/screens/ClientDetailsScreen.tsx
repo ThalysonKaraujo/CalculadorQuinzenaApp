@@ -1,7 +1,14 @@
 import type { StaticScreenProps } from "@react-navigation/native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { FlatList, Platform, StyleSheet, Text, View } from "react-native";
+import {
+	FlatList,
+	Modal,
+	Platform,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Header } from "../components/Header";
 import { HeaderText } from "../components/HeaderText";
@@ -21,6 +28,7 @@ export function ClientDetailsScreen({ route }: Props) {
 	const insets = useSafeAreaInsets();
 	const navigation = useNavigation();
 	const [meals, setMeals] = useState<Meal[]>([]);
+	const [isModalVisible, setIsModalVisible] = useState(false);
 	const { getMealsByCompanyId } = useGetMealsByCompanyId();
 
 	useFocusEffect(
@@ -108,12 +116,43 @@ export function ClientDetailsScreen({ route }: Props) {
 						<CustomButton variant="outline" onPress={() => {}}>
 							Exportar PDF
 						</CustomButton>
-						<CustomButton variant="outline" onPress={() => {}}>
-							Finalizar Quinzena
+						<CustomButton
+							style={{ backgroundColor: "#ef1c1c" }}
+							variant="outline"
+							onPress={() => {
+								setIsModalVisible(true);
+							}}
+						>
+							<Text style={{ color: "#FFF" }}>Finalizar Quinzena</Text>
 						</CustomButton>
 					</View>
 				}
 			/>
+			<Modal
+				visible={isModalVisible}
+				animationType="slide"
+				transparent={true}
+				onRequestClose={() => setIsModalVisible(false)}
+			>
+				<View style={styles.modalOverlay}>
+					<View style={styles.modalContainer}>
+						<Title>Finalizar Quinzena</Title>
+						<Text style={styles.modalText}>
+							Ao finalizar, todas as refeições e quantidades adicioandas serão
+							excluídas
+						</Text>
+						<CustomButton variant="primary" onPress={() => {}}>
+							Confirmar
+						</CustomButton>
+						<CustomButton
+							variant="outline"
+							onPress={() => setIsModalVisible(false)}
+						>
+							Cancelar
+						</CustomButton>
+					</View>
+				</View>
+			</Modal>
 		</View>
 	);
 }
@@ -132,5 +171,27 @@ const styles = StyleSheet.create({
 	mealsTitleContainer: {
 		marginTop: 20,
 		marginHorizontal: 20,
+	},
+	modalOverlay: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "rgba(0, 0, 0, 0.8)",
+	},
+	modalContainer: {
+		backgroundColor: "#FFF",
+		width: "85%",
+		padding: 20,
+		borderRadius: 15,
+		elevation: 5,
+		textAlign: "center",
+		gap: 20,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	modalText: {
+		fontSize: 14,
+		color: "#555454",
+		textAlign: "center",
 	},
 });

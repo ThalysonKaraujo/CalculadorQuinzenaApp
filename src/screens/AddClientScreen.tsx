@@ -20,6 +20,16 @@ export function AddClientScreen() {
 
 	async function handleAddClient() {
 		try {
+			if (
+				!name ||
+				!responsibleName ||
+				name.trim() === "" ||
+				responsibleName.trim() === "" ||
+				name.length > 15 ||
+				responsibleName.length > 12
+			) {
+				alert("Por favor, preencha todos os campos.");
+			}
 			await createCompany(name, responsibleName);
 			setName("");
 			setResponsibleName("");

@@ -48,4 +48,16 @@ export const repository = {
 			[companyId],
 		);
 	},
+
+	async updateQuantity(
+		db: SQLiteDatabase,
+		entryId: number,
+		newQuantity: number,
+		newDate: string,
+	) {
+		await db.runAsync(
+			"UPDATE meals_entries SET quantity = ?, created_at = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?;",
+			[newQuantity, newDate, entryId],
+		);
+	},
 };

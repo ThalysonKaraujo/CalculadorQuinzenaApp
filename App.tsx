@@ -9,6 +9,7 @@ import { AddedQuantitiesScreen } from "./src/screens/AddedQuantitiesScren";
 import { AddMealScreen } from "./src/screens/AddMealScreen";
 import { AddQuantityScreen } from "./src/screens/AddQuantity";
 import { ClientDetailsScreen } from "./src/screens/ClientDetailsScreen";
+import { EditQuantityScreen } from "./src/screens/EditQuantityScreen";
 import { HomeScreen } from "./src/screens/HomeScreen";
 
 const RootStack = createNativeStackNavigator({
@@ -26,6 +27,7 @@ const RootStack = createNativeStackNavigator({
 		AddMeal: AddMealScreen,
 		AddQuantity: AddQuantityScreen,
 		AddedQuantities: AddedQuantitiesScreen,
+		EditQuantity: EditQuantityScreen,
 	},
 });
 
