@@ -2,6 +2,8 @@ export type Company = {
 	id: number;
 	name: string;
 	responsible_person: string;
+	total_meals: number;
+	total_value: number;
 };
 
 export type Meal = {

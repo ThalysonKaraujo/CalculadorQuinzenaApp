@@ -21,9 +21,13 @@ export function ClientCard({
 	return (
 		<TouchableCard onPress={onPress} style={styles.container}>
 			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-				<Text style={styles.clientName}>{clientName}</Text>
+				<Text style={styles.clientName} numberOfLines={1}>
+					{clientName}
+				</Text>
 				<View style={{ flexDirection: "row", alignItems: "center" }}>
-					<Text style={styles.responsibleName}> {responsibleName}</Text>
+					<Text style={styles.responsibleName} numberOfLines={1}>
+						{responsibleName}
+					</Text>
 				</View>
 			</View>
 			<View style={{ flexDirection: "row", flex: 1, alignItems: "center" }}>
@@ -49,7 +53,7 @@ export function ClientCard({
 							<View style={styles.info}>
 								<Text style={styles.infoTitle}>Refeições </Text>
 								<Text style={[styles.infoValue, { color: Colors.primary }]}>
-									{totalMeals} unidades
+									{totalMeals}
 								</Text>
 							</View>
 						</View>
@@ -79,10 +83,12 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	clientName: {
+		flex: 1,
 		fontSize: 18,
 		fontWeight: "bold",
 		paddingTop: 20,
 		paddingLeft: 20,
+		marginRight: 10,
 	},
 	responsibleName: {
 		fontSize: 12,

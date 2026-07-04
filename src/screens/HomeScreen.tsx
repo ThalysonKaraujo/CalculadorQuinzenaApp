@@ -16,6 +16,7 @@ export function HomeScreen() {
 	const navigation = useNavigation();
 
 	const [companies, setCompanies] = useState<Company[]>([]);
+	const [searchQuery, setSearchQuery] = useState<string>("");
 	const { getAllCompanies } = useGetAllCompanies();
 
 	useFocusEffect(
@@ -30,7 +31,12 @@ export function HomeScreen() {
 			}
 
 			fetchCompanies();
+			setSearchQuery("");
 		}, [getAllCompanies]),
+	);
+
+	const filteredCompanies = companies.filter((company) =>
+		company.name.toLowerCase().includes(searchQuery.toLowerCase()),
 	);
 
 	return (
@@ -39,14 +45,10 @@ export function HomeScreen() {
 			<View style={styles.inputContainer}>
 				<TextInput
 					placeholder="Procure a construtora"
+					value={searchQuery}
+					onChangeText={setSearchQuery}
 					style={styles.textInput}
 				/>
-				<Pressable
-					style={({ pressed }) => [styles.button, pressed && { opacity: 0.5 }]}
-					android_ripple={{ color: "#ccc" }}
-				>
-					<Feather name="search" size={20} color="black" />
-				</Pressable>
 			</View>
 			<View style={styles.activeClientContainer}>
 				<Text>Construtoras Ativas</Text>
@@ -56,13 +58,13 @@ export function HomeScreen() {
 			</View>
 			<View style={styles.clientCardsContainer}>
 				<FlatList
-					data={companies}
-					keyExtractor={(item) => item.id.toString()}
+					data={filteredCompanies}
+					keyExtractor={(item: Company) => item.id.toString()}
 					renderItem={({ item }) => (
 						<ClientCard
 							clientName={item.name}
-							totalValue={0}
-							totalMeals={0}
+							totalValue={item.total_value / 100}
+							totalMeals={item.total_meals}
 							responsibleName={item.responsible_person}
 							onPress={() => {
 								navigation.navigate("ClientDetails", {
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
 		borderWidth: 0.25,
 	},
 	textInput: {
-		width: "80%",
+		width: "95%",
 	},
 	buttonText: {
 		color: "#000",
@@ -136,8 +138,9 @@ const styles = StyleSheet.create({
 	},
 	activeClientCountContainer: {
 		backgroundColor: "#d1d1d1",
-		width: 30,
 		height: 30,
+		minWidth: 30,
+		paddingHorizontal: 5,
 		borderRadius: 15,
 		justifyContent: "center",
 		alignItems: "center",
