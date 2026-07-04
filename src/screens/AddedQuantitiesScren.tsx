@@ -47,7 +47,7 @@ export function AddedQuantitiesScreen({ route }: Props) {
 				data={quantities}
 				renderItem={({ item }) => (
 					<QuantityCard
-						entryId={item.id} // <-- Ligamos o id do banco no entryId!
+						entryId={item.id}
 						mealName={item.mealName}
 						quantity={item.quantity}
 						date={item.date}

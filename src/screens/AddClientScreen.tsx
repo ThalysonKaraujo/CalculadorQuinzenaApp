@@ -11,7 +11,6 @@ import { TextInput } from "../components/ui/TextInput";
 import { useCreateCompany } from "../hooks/useCreateCompany";
 
 export function AddClientScreen() {
-	const insets = useSafeAreaInsets();
 	const navigation = useNavigation();
 	const { createCompany } = useCreateCompany();
 
@@ -20,15 +19,10 @@ export function AddClientScreen() {
 
 	async function handleAddClient() {
 		try {
-			if (
-				!name ||
-				!responsibleName ||
-				name.trim() === "" ||
-				responsibleName.trim() === "" ||
-				name.length > 15 ||
-				responsibleName.length > 12
-			) {
-				alert("Por favor, preencha todos os campos.");
+			if (!name || name.trim() === "") {
+				return alert(
+					"Por favor, preencha todos os campos antes de adicionar a construtora.",
+				);
 			}
 			await createCompany(name, responsibleName);
 			setName("");
