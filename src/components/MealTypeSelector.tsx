@@ -50,11 +50,12 @@ const styles = StyleSheet.create({
 		height: 120,
 		backgroundColor: "#fff",
 		borderRadius: 10,
+		borderWidth: 1,
+		borderColor: "transparent",
 	},
 	selectedMeal: {
-		backgroundColor: "rgbrgba(0, 57, 176, 0.1)",
+		backgroundColor: "#E5EBF7",
 		borderColor: Colors.primary,
-		borderWidth: 1,
 	},
 	mealName: {
 		fontSize: 16,

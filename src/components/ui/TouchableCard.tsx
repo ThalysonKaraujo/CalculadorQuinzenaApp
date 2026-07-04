@@ -16,9 +16,9 @@ export function TouchableCard({
 			style={({ pressed }) => [
 				styles.container,
 				style,
-				pressed && Platform.OS === "ios" && { opacity: 0.5 },
+				pressed && { opacity: 0.5 },
 			]}
-			android_ripple={{ color: "rgba(0, 0, 0, 0.1)", foreground: true }}
+			android_ripple={{ color: "rgba(0, 0, 0, 0.1)" }}
 			onPress={onPress}
 		>
 			{children}

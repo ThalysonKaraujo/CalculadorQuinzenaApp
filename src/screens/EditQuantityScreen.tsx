@@ -29,13 +29,11 @@ export function EditQuantityScreen({ route }: Props) {
 	);
 
 	const onChange = (event: any, selectedDate?: Date) => {
-		// Se o usuário cancelou, não faz nada
 		if (!selectedDate) {
 			setShowPicker(false);
 			return;
 		}
 
-		// Salva a data nova e esconde o calendário
 		setDateValue(selectedDate);
 		setShowPicker(false);
 	};

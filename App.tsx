@@ -2,6 +2,7 @@ import type { StaticParamList } from "@react-navigation/native";
 import { createStaticNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SQLiteProvider } from "expo-sqlite";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Colors } from "./src/constants/Colors";
 import { initDatabase } from "./src/database/databaseInit";
 import { AddClientScreen } from "./src/screens/AddClientScreen";
@@ -43,8 +44,10 @@ const Navigation = createStaticNavigation(RootStack);
 
 export default function App() {
 	return (
-		<SQLiteProvider databaseName="quinzena.db" onInit={initDatabase}>
-			<Navigation />
-		</SQLiteProvider>
+		<SafeAreaProvider>
+			<SQLiteProvider databaseName="quinzena.db" onInit={initDatabase}>
+				<Navigation />
+			</SQLiteProvider>
+		</SafeAreaProvider>
 	);
 }
