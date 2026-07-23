@@ -1,0 +1,12 @@
+appId: host.exp.Exponent
+---
+- runFlow: ../launch_app.yaml
+- assertVisible: "Sabor Caseiro"
+- tapOn: 
+    id: "client-card"
+    index: 0
+- tapOn: "Adicionar Refeição"
+- tapOn: "Café"
+- tapOn: "R$ 0,00"
+- inputText: "10,00"
+- tapOn: "Adicionar Refeição"

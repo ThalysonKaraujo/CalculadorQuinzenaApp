@@ -1,0 +1,13 @@
+appId: host.exp.Exponent
+---
+- runFlow: ../launch_app.yaml
+- assertVisible: "Sabor Caseiro" 
+- tapOn:
+    id: "new-client-button"
+- tapOn:
+    id: "client-name-input"
+- inputText: "Construtora Teste"
+- tapOn:
+    id: "responsible-name-input"
+- inputText: "Responsável Teste"
+- tapOn: "Adicionar Construtora"
