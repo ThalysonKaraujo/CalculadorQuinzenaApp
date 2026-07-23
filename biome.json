@@ -19,6 +19,7 @@
 		}
 	},
 	"javascript": {
+		"globals": ["describe", "it", "expect", "jest", "beforeEach", "beforeAll", "afterEach", "afterAll", "fireEvent", "render", "screen", "waitFor", "waitForElementToBeRemoved", "act"],
 		"formatter": {
 			"quoteStyle": "double"
 		}
