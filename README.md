@@ -23,6 +23,26 @@ Este projeto foi construído utilizando as melhores práticas do ecossistema Mob
 * **SQLite** - Banco de dados local robusto para persistência das construtoras e lançamentos de forma offline.
 * **React Navigation** - Gestão do fluxo de telas e pacotes de dados.
 * **Expo Print & Sharing** - Para transformação de HTML em relatórios PDF compartilháveis.
+* **Biome** - Ferramenta super rápida e moderna para Linting e Formatação de código.
+
+## 🧪 Qualidade e Testes Automatizados
+
+O projeto leva a confiabilidade a sério, implementando uma suíte robusta de testes:
+
+* **Testes de Componentes (Jest + React Native Testing Library):** Garantem que a interface visual, botões e formulários reajam corretamente aos toques do usuário e renderizem os dados corretos sem precisar abrir um emulador.
+* **Testes E2E End-to-End (Maestro):** Robôs que navegam fisicamente pelo aplicativo no emulador, garantindo que os fluxos completos do usuário (como adicionar uma construtora ou uma refeição) funcionem perfeitamente em cenários reais.
+
+### Como rodar os testes:
+**Testes de Componente (Jest):**
+```bash
+npm test
+```
+
+**Testes E2E (Maestro):**
+Com o app rodando no emulador, execute:
+```bash
+maestro test .maestro/
+```
 
 ## 🧠 Arquitetura e Decisões Técnicas
 
@@ -30,17 +50,18 @@ Durante a construção do app, adotamos práticas de Engenharia de Software mode
 * **Offload de Cálculos para o Banco:** Em vez de realizar laços de repetição (`map`/`reduce`) custosos no JavaScript para calcular totais históricos, utilizamos queries SQL otimizadas (`LEFT JOIN` com `SUM()`) para transferir o trabalho pesado para o SQLite.
 * **Custom Hooks:** Toda a lógica de comunicação com o banco de dados foi isolada em Custom Hooks (ex: `useGetMealsByCompanyId`), garantindo componentes visuais limpos e reaproveitamento de código.
 * **State Management Inteligente:** Utilização do `useFocusEffect` para re-hidratação passiva dos dados na tela ao retornar da navegação.
+* **Design Testável:** Uso extensivo de `testID`s na camada de UI para expor a Árvore de Acessibilidade, permitindo automação de testes E2E ultra-resiliente.
 
 ## 💻 Como Rodar o Projeto Localmente
 
 1. Clone este repositório:
 ```bash
-git clone https://github.com/SEU_USUARIO/calculador-quinzena.git
+git clone https://github.com/ThalysonKaraujo/CalculadorQuinzenaApp.git
 ```
 
 2. Instale as dependências:
 ```bash
-cd calculador-quinzena
+cd CalculadorQuinzenaApp
 npm install
 ```
 
