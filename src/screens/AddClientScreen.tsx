@@ -45,12 +45,14 @@ export function AddClientScreen() {
 				<View style={styles.inputContainer}>
 					<Text> Nome da Construtora</Text>
 					<TextInput
+						testID="client-name-input"
 						style={styles.textInput}
 						value={name}
 						onChangeText={setName}
 					/>
 					<Text> Nome do Responsável</Text>
 					<TextInput
+						testID="responsible-name-input"
 						style={styles.textInput}
 						value={responsibleName}
 						onChangeText={setResponsibleName}

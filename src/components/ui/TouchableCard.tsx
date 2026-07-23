@@ -4,12 +4,14 @@ type TouchableCardProps = {
 	onPress: () => void;
 	children: React.ReactNode;
 	style?: object;
+	testID?: string;
 };
 
 export function TouchableCard({
 	onPress,
 	children,
 	style,
+	testID,
 }: TouchableCardProps) {
 	return (
 		<Pressable
@@ -20,6 +22,7 @@ export function TouchableCard({
 			]}
 			android_ripple={{ color: "rgba(0, 0, 0, 0.1)" }}
 			onPress={onPress}
+			testID={testID}
 		>
 			{children}
 		</Pressable>

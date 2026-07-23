@@ -62,6 +62,7 @@ export function HomeScreen() {
 					keyExtractor={(item: Company) => item.id.toString()}
 					renderItem={({ item }) => (
 						<ClientCard
+							testID="client-card"
 							clientName={item.name}
 							totalValue={item.total_value / 100}
 							totalMeals={item.total_meals}

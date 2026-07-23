@@ -9,6 +9,7 @@ type ClientCardProps = {
 	totalMeals: number;
 	responsibleName?: string;
 	onPress: () => void;
+	testID?: string;
 };
 
 export function ClientCard({
@@ -17,9 +18,10 @@ export function ClientCard({
 	totalMeals,
 	responsibleName,
 	onPress,
+	testID,
 }: ClientCardProps) {
 	return (
-		<TouchableCard onPress={onPress} style={styles.container}>
+		<TouchableCard onPress={onPress} style={styles.container} testID={testID}>
 			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
 				<Text style={styles.clientName} numberOfLines={1}>
 					{clientName}

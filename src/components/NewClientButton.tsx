@@ -12,6 +12,7 @@ export function NewClientButton({ onPress }: NewClientButtonProps) {
 
 	return (
 		<Pressable
+			testID="new-client-button"
 			onPress={onPress}
 			style={({ pressed }) => [
 				styles.button,
